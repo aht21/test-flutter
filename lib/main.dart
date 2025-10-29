@@ -1,20 +1,14 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_application/di/di.dart';
+import 'package:flutter_application/flutter_application.dart';
 
-main() => runApp(
-  Directionality(
-    textDirection: TextDirection.ltr,
-    child: Container( // новый виджет! <div> в мире Flutter'а
-      // Для виджета Container свойство color означает цвет фона
-      color: Color(0xFF444444),
-      child: Center(
-        child: Text(
-          'Hello, World!',
-          style: TextStyle( // а у текста появился виджет, который его стилизует
-            color: Color(0xFFFD620A), // задаем ему цвет текста
-            fontSize: 32.0, // и размер шрифта
-          ),
-        ),
-      ),
-    ),
-  ),
-);
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
+
+  FlutterError.onError = (details) {
+    talker.handle(details.exception, details.stack);
+  };
+
+  runApp(const AppName());
+}
