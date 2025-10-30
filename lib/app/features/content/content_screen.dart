@@ -15,7 +15,12 @@ class ContentScreen extends StatelessWidget {
     };
 
     return Scaffold(
-      appBar: AppBar(title: Text(content['title']!)),
+      appBar: AppBar(
+        title: Text(content['title']!), 
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
