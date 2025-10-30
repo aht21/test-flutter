@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ContentCard extends StatelessWidget {
-  const ContentCard({super.key});
+  final int id;
+
+  const ContentCard({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
-    const imageSize = 100.0;
+    final imageSize = 100.0;
 
     return InkWell(
+      onTap: () => context.push('/content/$id'),
       borderRadius: BorderRadius.circular(16),
-      onTap: () {}, // потом добавим переход
       child: SizedBox(
         height: imageSize,
         child: Row(
@@ -31,14 +34,14 @@ class ContentCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Title example',
+                    'Item $id',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Expanded(
                     child: Text(
-                      'Description of this content card. It shows how text wraps within the layout.',
+                      'Description for item $id',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyMedium,
