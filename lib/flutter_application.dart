@@ -12,7 +12,7 @@ class AppName extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Название приложения',
+      title: 'Test flutter',
       theme: AppTheme.lightTheme,
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
