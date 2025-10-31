@@ -67,7 +67,22 @@ class _ContentScreenState extends State<ContentScreen> {
               ),
             );
           } else if (state is ContentError) {
-            return Center(child: Text('Error: ${state.message}'));
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Error: ${state.message}'),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: () => _bloc.add(ContentLoad(widget.id)),
+                      child: const Text('Reload'),
+                    ),
+                  ],
+                ),
+              ),
+            );
           }
 
           return const SizedBox.shrink();
