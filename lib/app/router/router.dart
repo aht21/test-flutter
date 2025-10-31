@@ -25,7 +25,7 @@ final router = GoRouter(
         final id = state.pathParameters['id']!;
         return MaterialPage(
           key: state.pageKey,
-          child: ContentScreen(contentId: id),
+          child: ContentScreen(id: int.parse(id)),
         );
       },
     ),
