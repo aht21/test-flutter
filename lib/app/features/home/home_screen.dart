@@ -39,7 +39,20 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           } else if (state is HomeLoadFailure) {
             return Center(
-              child: Text('Error: ${state.exception}'),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Error: ${state.exception}'),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: () => _home.add(const HomeLoad()),
+                      child: const Text('Reload'),
+                    ),
+                  ],
+                ),
+              ),
             );
           }
           return const SizedBox.shrink();
