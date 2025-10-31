@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_application/app/features/content/content_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
-import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
 import 'package:flutter_application/app/features/home/home_bloc.dart';
 import 'package:flutter_application/data/repositories/content_repository.dart';
@@ -25,12 +25,22 @@ Future<void> setupLocator() async {
   getIt.registerSingleton(
     HomeBloc(getIt.get<ContentRepositoryInterface>()),
   );
+
+  getIt.registerSingleton(ContentBloc(
+  getIt.get<ContentRepositoryInterface>(),
+));
+
 }
 
 void setUpDio() {
-  dio.options.baseUrl = 'https://jsonplaceholder.typicode.com';
+  dio.options.baseUrl = 'https://jsonplaceholder.typicode.com/';
   dio.options.connectTimeout = const Duration(seconds: 5);
   dio.options.receiveTimeout = const Duration(seconds: 5);
+  dio.options.validateStatus = (status) => status != null && status < 500;
+  dio.options.headers.addAll({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  });
 
   dio.interceptors.addAll([
     TalkerDioLogger(

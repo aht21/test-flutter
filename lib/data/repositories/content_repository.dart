@@ -11,19 +11,35 @@ class ContentRepository implements ContentRepositoryInterface {
   @override
   Future<List<Content>> getContent() async {
     try {
-      print('🔵 getContent() called');
       final response = await dio.get(Endpoints.content);
-      print('🟢 Response received: ${response.data}');
-
-      // jsonplaceholder возвращает список
-      final content = (response.data as List)
-          .map((e) => Content.fromJson(e as Map<String, dynamic>))
-          .toList();
-
-      return content;
+      if (response.statusCode == 200) {
+        final content = (response.data as List)
+            .map((e) => Content.fromJson(e as Map<String, dynamic>))
+            .toList();
+        return content;
+      }
+      final code = response.statusCode;
+      final data = response.data;
+      throw Exception('Failed to load content (status: $code, body: $data)');
     } on DioException catch (e) {
-      print('🔴 Dio error: ${e.message}');
-      throw e.message.toString();
+      final code = e.response?.statusCode;
+      throw Exception('Network error loading content (status: $code): ${e.message}');
+    }
+  }
+
+  @override
+  Future<Content> getContentById(int id) async {
+    try {
+      final response = await dio.get(Endpoints.contentById(id));
+      if (response.statusCode == 200) {
+        return Content.fromJson(response.data);
+      }
+      final code = response.statusCode;
+      final data = response.data;
+      throw Exception('Failed to load post $id (status: $code, body: $data)');
+    } on DioException catch (e) {
+      final code = e.response?.statusCode;
+      throw Exception('Network error loading post $id (status: $code): ${e.message}');
     }
   }
 }

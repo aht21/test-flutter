@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/app/app.dart';
-import 'package:flutter_application/app/theme/theme_data.dart';
-import 'package:flutter_application/di/di.dart';
-import 'package:go_router/go_router.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class AppName extends StatelessWidget {
   const AppName({super.key});
