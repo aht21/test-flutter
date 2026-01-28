@@ -9,9 +9,23 @@ final _rootNavigationKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final router = GoRouter(
   observers: [TalkerRouteObserver(talker)],
   debugLogDiagnostics: true,
-  initialLocation: '/home',
+  initialLocation: '/login',
   navigatorKey: _rootNavigationKey,
   routes: [
+    GoRoute(
+      path: '/login',
+      pageBuilder: (_, state) => MaterialPage(
+        key: state.pageKey,
+        child: const LoginScreen(),
+      ),
+    ),
+    GoRoute(
+      path: '/registration',
+      pageBuilder: (_, state) => MaterialPage(
+        key: state.pageKey,
+        child: const SignUpScreen(),
+      ),
+    ),
     GoRoute(
       path: '/home',
       pageBuilder: (_, state) => MaterialPage(
