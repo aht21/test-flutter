@@ -5,8 +5,10 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 import 'package:flutter_application/app/features/home/home_bloc.dart';
+import 'package:flutter_application/app/features/auth/auth_bloc.dart';
 import 'package:flutter_application/data/repositories/content_repository.dart';
 import 'package:flutter_application/data/repositories/content_repository_interface.dart';
+import 'package:flutter_application/data/services/auth_service.dart';
 
 final getIt = GetIt.instance;
 final talker = TalkerFlutter.init();
@@ -26,10 +28,17 @@ Future<void> setupLocator() async {
     HomeBloc(getIt.get<ContentRepositoryInterface>()),
   );
 
-  getIt.registerSingleton(ContentBloc(
-  getIt.get<ContentRepositoryInterface>(),
-));
+  getIt.registerSingleton(
+    ContentBloc(getIt.get<ContentRepositoryInterface>()),
+  );
 
+  getIt.registerLazySingleton<AuthServiceInterface>(
+    () => AuthService(),
+  );
+
+  getIt.registerLazySingleton<AuthBloc>(
+    () => AuthBloc(getIt<AuthServiceInterface>()),
+  );
 }
 
 void setUpDio() {
