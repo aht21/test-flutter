@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Правила для коллекции users
+    match /users/{userId} {
+      // Пользователь может читать и писать только свои данные
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // Правила для подколлекции favorites
+      match /favorites/{favoriteId} {
+        // Пользователь может читать и писать только свои избранные элементы
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+  }
+}

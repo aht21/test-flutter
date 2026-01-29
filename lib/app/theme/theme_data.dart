@@ -21,6 +21,13 @@ final _appBarTheme = AppBarTheme(
   elevation: 0,
   scrolledUnderElevation: 0,
   centerTitle: true,
+  iconTheme: const IconThemeData(
+    color: ThemeColors.white,
+  ),
+  actionsIconTheme: const IconThemeData(
+    color: ThemeColors.white,
+  ),
+  foregroundColor: ThemeColors.white,
   titleTextStyle: const TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,

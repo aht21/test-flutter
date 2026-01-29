@@ -42,7 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
           title: const Text('Home'),
           actions: [
             IconButton(
-              icon: const Icon(Icons.logout),
+              icon: const Icon(Icons.favorite, color: Colors.white,),
+              onPressed: () => context.push('/favorites'),
+            ),
+            IconButton(
+              icon: const Icon(Icons.logout, color: Colors.white,),
               onPressed: () {
                 authBloc.add(LogOutRequested());
               },
