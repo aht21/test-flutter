@@ -6,9 +6,11 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 import 'package:flutter_application/app/features/home/home_bloc.dart';
 import 'package:flutter_application/app/features/auth/auth_bloc.dart';
+import 'package:flutter_application/app/features/favorites/favorites_bloc.dart';
 import 'package:flutter_application/data/repositories/content_repository.dart';
 import 'package:flutter_application/data/repositories/content_repository_interface.dart';
 import 'package:flutter_application/data/services/auth_service.dart';
+import 'package:flutter_application/data/services/favorites_service.dart';
 
 final getIt = GetIt.instance;
 final talker = TalkerFlutter.init();
@@ -38,6 +40,14 @@ Future<void> setupLocator() async {
 
   getIt.registerLazySingleton<AuthBloc>(
     () => AuthBloc(getIt<AuthServiceInterface>()),
+  );
+
+  getIt.registerLazySingleton<FavoritesServiceInterface>(
+    () => FavoritesService(),
+  );
+
+  getIt.registerLazySingleton<FavoritesBloc>(
+    () => FavoritesBloc(getIt<FavoritesServiceInterface>()),
   );
 }
 

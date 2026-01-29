@@ -8,18 +8,22 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    debugPrint('Firebase initialization error: $e');
+    rethrow;
+  }
+
   setUpDio();
   await setupLocator();
-  
 
   FlutterError.onError = (details) {
     talker.handle(details.exception, details.stack);
   };
-
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
   if (kIsWeb) {
     usePathUrlStrategy();
